@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hackathons & Coding Competitions</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ffcc66, #9966ff);
+    }
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .filter-container {
+      text-align: center;
+      margin: 20px;
+      font-size: 16px;
+    }
+    .filter-container input, .filter-container select {
+      padding: 5px 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background-color: cornsilk;
+      border: 2px solid black;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: left;
+      font-weight: normal;
+      font-size: 16px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    .card h2 { margin-top: 0; font-size: 18px; font-weight: bold; }
+    .button-container {
+      margin-top: auto; 
+      display: flex; 
+      justify-content: space-between; 
+      gap: 10px;
+    }
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+    }
+    .apply-btn { background: #007bff; }
+    .notify-btn { background: #ff9800; border: none; }
+    .btn:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+<h1>Hackathons & Coding Competitions</h1>
+
+<div class="filter-container">
+  <label for="monthFilter">Filter by Month:</label>
+  <select id="monthFilter">
+    <option value="all">All</option>
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+    <option value="October">October</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+  </select>
+  <input type="text" id="keywordFilter" placeholder="Search by title...">
+</div>
+
+<div class="card-container" id="cardContainer"></div>
+
+<script>
+const hackathons = [
+  { title: "Flipkart Grid", desc: "Solve real-world tech/business problems.", timeline: "July-Aug, 2nd-3rd year", applyLink: "https://unstop.com/competitions/flipkart-grid", finalMonth: "July" },
+  { title: "Flipkart Runway", desc: "Competitive coding and problem-solving event.", timeline: "Feb-March, 2nd-3rd year", applyLink: "#", finalMonth: "February" },
+  { title: "Myntra HackerRamp (Normal Hiring)", desc: "Hackathon & Recruitment challenge.", timeline: "October, 2nd-3rd year", applyLink: "#", finalMonth: "October" },
+  { title: "Myntra HackerRamp (Diversity Hiring)", desc: "Diversity-focused hackathon.", timeline: "March-April, 2nd-3rd year", applyLink: "#", finalMonth: "March" },
+  { title: "Uber Hacktag", desc: "Hackathon hosted by Uber.", timeline: "Feb-March, 3rd year", applyLink: "#", finalMonth: "February" },
+  { title: "Cisco Ideathon", desc: "Idea-driven hackathon by Cisco.", timeline: "March-June, 2nd-3rd year", applyLink: "#", finalMonth: "March" },
+  { title: "Trilogy Codeagon", desc: "Competitive coding marathon.", timeline: "Jan-Aug, 2nd-3rd year", applyLink: "#", finalMonth: "January" },
+  { title: "Walmart CodeHers", desc: "Women-centric coding competition.", timeline: "March, 3rd year", applyLink: "#", finalMonth: "March" },
+  { title: "GSOC", desc: "Open source contribution & mentorship program.", timeline: "May-Aug, Open", applyLink: "#", finalMonth: "May" }
+];
+
+const monthOrder = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+const cardContainer = document.getElementById('cardContainer');
+const monthFilter = document.getElementById('monthFilter');
+const keywordFilter = document.getElementById('keywordFilter');
+
+function displayCards(filterMonth="all", keyword="") {
+  cardContainer.innerHTML = "";
+  const sortedHackathons = hackathons.slice().sort((a,b) => monthOrder.indexOf(a.finalMonth) - monthOrder.indexOf(b.finalMonth));
+  
+  sortedHackathons.forEach(event => {
+    if((filterMonth === "all" || event.timeline.includes(filterMonth)) && event.title.toLowerCase().includes(keyword.toLowerCase())) {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <h2>${event.title}</h2>
+        <p>${event.desc}</p>
+        <p><strong>Timeline:</strong> ${event.timeline}</p>
+        <div class="button-container">
+          <a href="${event.applyLink}" target="_blank" class="btn apply-btn">Apply</a>
+          <button class="btn notify-btn">Notify Me</button>
+        </div>
+      `;
+      const notifyBtn = card.querySelector('.notify-btn');
+      notifyBtn.addEventListener('click', () => {
+        let notified = JSON.parse(localStorage.getItem('notifications')) || [];
+        if(!notified.includes(event.title)) {
+          notified.push(event.title);
+          localStorage.setItem('notifications', JSON.stringify(notified));
+          alert(`You will be notified when ${event.title} is live!`);
+        } else {
+          alert(`You already subscribed for ${event.title}!`);
+        }
+      });
+      cardContainer.appendChild(card);
+    }
+  });
+}
+
+// Event listeners
+monthFilter.addEventListener('change', () => displayCards(monthFilter.value, keywordFilter.value));
+keywordFilter.addEventListener('input', () => displayCards(monthFilter.value, keywordFilter.value));
+
+// Initial render
+displayCards();
+</script>
+
+</body>
+</html>

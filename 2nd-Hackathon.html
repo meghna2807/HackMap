@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Opportunities</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ff66cc, #9966ff);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background-color: cornsilk;
+      border: 2px solid black;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: left;
+      font-weight: normal;
+      font-size: 16px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .button-container {
+      margin-top: auto; 
+      display: flex; 
+      justify-content: space-between; 
+      gap: 10px;
+    }
+
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+    }
+
+    .apply-btn {
+      background: #007bff;
+    }
+
+    .notify-btn {
+      background: #ff9800;
+      border: none;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find Year Specific Opportunities</h1>
+
+  <div class="card-container">
+
+    <div class="card">
+      <h2>Google Girl Hackathon</h2>
+      <p>An initiative by Google to empower young women in technology through a problem-solving hackathon.</p>
+      <p><strong>Timeline:</strong> Applications open in <em>August</em>, finals in <em>October</em>.</p>
+      <div class="button-container">
+        <a href="#" class="btn apply-btn" target="_blank">Apply</a>
+        <button onclick="alert('You will be notified when Google Girl Hackathon is live!')" class="btn notify-btn">Notify Me</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Flipkart Grid</h2>
+      <p>A nationwide hackathon by Flipkart where students solve real-world tech and business problems.</p>
+      <p><strong>Timeline:</strong> Applications open in <em>July</em>, finals in <em>September</em>.</p>
+      <div class="button-container">
+        <a href="https://unstop.com/competitions/flipkart-grid" target="_blank" class="btn apply-btn">Apply</a>
+        <button onclick="alert('You will be notified when Flipkart Grid is live!')" class="btn notify-btn">Notify Me</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Adobe India Hackathon</h2>
+      <p>Students develop innovative solutions using Adobe tools and platforms in a competitive hackathon environment.</p>
+      <p><strong>Timeline:</strong> Applications open in <em>June</em>, finals in <em>September</em>.</p>
+      <div class="button-container">
+        <a href="#" class="btn apply-btn" target="_blank">Apply</a>
+        <button onclick="alert('You will be notified when Adobe India Hackathon is live!')" class="btn notify-btn">Notify Me</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Smart India Hackathon</h2>
+      <p>A nationwide initiative where students collaborate to solve pressing real-world problems presented by government and industry.</p>
+      <p><strong>Timeline:</strong> Applications open in <em>January</em>, finals in <em>April</em>.</p>
+      <div class="button-container">
+        <a href="#" class="btn apply-btn" target="_blank">Apply</a>
+        <button onclick="alert('You will be notified when Smart India Hackathon is live!')" class="btn notify-btn">Notify Me</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>TCS CodeVita</h2>
+      <p>A global coding competition hosted by TCS to identify and reward talented programmers worldwide.</p>
+      <p><strong>Timeline:</strong> Applications open in <em>September</em>, finals in <em>December</em>.</p>
+      <div class="button-container">
+        <a href="#" class="btn apply-btn" target="_blank">Apply</a>
+        <button onclick="alert('You will be notified when TCS CodeVita is live!')" class="btn notify-btn">Notify Me</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>EY Techathon</h2>
+      <p>A technology-focused competition by EY to solve real-world business challenges using innovative tech solutions.</p>
+      <p><strong>Timeline:</strong> Applications open in <em>July</em>, finals in <em>October</em>.</p>
+      <div class="button-container">
+        <a href="#" class="btn apply-btn" target="_blank">Apply</a>
+        <button onclick="alert('You will be notified when EY Techathon is live!')" class="btn notify-btn">Notify Me</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>JP Morgan Chase — Code for Good (CFD)</h2>
+      <p>A hackathon by JP Morgan where students develop software solutions addressing social and community challenges.</p>
+      <p><strong>Timeline:</strong> Applications open in <em>April</em>, finals in <em>June</em>.</p>
+      <div class="button-container">
+        <a href="#" class="btn apply-btn" target="_blank">Apply</a>
+        <button onclick="alert('You will be notified when JP Morgan Chase Code for Good is live!')" class="btn notify-btn">Notify Me</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Google Solution Challenge</h2>
+      <p>An annual hackathon by Google for students to build solutions using Google technologies to solve global problems.</p>
+      <p><strong>Timeline:</strong> Applications open in <em>February</em>, finals in <em>April</em>.</p>
+      <div class="button-container">
+        <a href="#" class="btn apply-btn" target="_blank">Apply</a>
+        <button onclick="alert('You will be notified when Google Solution Challenge is live!')" class="btn notify-btn">Notify Me</button>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html> 
+
+
