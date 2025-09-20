@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Opportunities</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Opportunities</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #ff66cc, #9966ff);
+      background: linear-gradient(to bottom, #66ccff, #9966ff);
     }
-
     h1 {
       text-align: center;
       margin-top: 30px;
       font-size: 24px;
       font-weight: bold;
     }
-
+    .filter-container {
+      text-align: center;
+      margin: 20px;
+      font-size: 16px;
+    }
+    .filter-container input, .filter-container select {
+      padding: 5px 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
     .card-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -27,44 +35,150 @@
       margin: 40px auto;
       padding: 0 20px;
     }
-
     .card {
       background-color: cornsilk;
-      height: 200px;
       border: 2px solid black;
       border-radius: 15px;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      padding: 15px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      font-weight: bold;
-      font-size: 20px;
+      text-align: left;
+      font-weight: normal;
+      font-size: 16px;
       transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
     }
-
     .card:hover {
       transform: scale(1.05);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
-
-    button:hover{
-    background-color: rgb(222, 179, 251);
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    .card h2 { margin-top: 0; font-size: 18px; font-weight: bold; }
+    .button-container {
+      margin-top: auto; 
+      display: flex; 
+      justify-content: space-between; 
+      gap: 10px;
     }
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+    }
+    .apply-btn { background: #007bff; }
+    .notify-btn { background: #ff9800; border: none; }
+    .btn:hover { opacity: 0.85; }
   </style>
 </head>
 <body>
-  <h1>Find Year Specific Opportunities</h1>
 
-  <div class="card-container">
-    <div class="card">Google STEP</div>
-    <div class="card">DRDO</div>
-    <div class="card">Cisco India Virtual Internship</div>
-    <div class="card">TCS Digital / TCS Smart Hiring Internship</div>
-    <div class="card">IIT Kharagpur Online Summer Internship</div>
-    <div class="card">Microsoft Explore program</div>
-  </div>
+<h1>Find Internship Opportunities</h1>
+
+<div class="filter-container">
+  <label for="monthFilter">Filter by Month:</label>
+  <select id="monthFilter">
+    <option value="all">All</option>
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+    <option value="October">October</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+  </select>
+  <input type="text" id="keywordFilter" placeholder="Search by company...">
+</div>
+
+<div class="card-container" id="cardContainer"></div>
+
+<script>
+const internships = [
+  { 
+    title: "Google STEP", 
+    desc: "Software Development Internship at Google.", 
+    timeline: "Nov-Dec", 
+    applyLink: "https://www.google.com/about/careers/applications/", 
+    finalMonth: "TBD" 
+  },
+  { 
+    title: "Cisco Virtual Internship", 
+    desc: "Virtual internship program at Cisco.", 
+    timeline: "Oct-Nov", 
+    applyLink: "https://www.cisco.com/c/en_in/careers/internships.html", 
+    finalMonth: "October" 
+  },
+  { 
+    title: "Code With Cisco", 
+    desc: "Coding and technical skill development program by Cisco.", 
+    timeline: "Sep-Oct", 
+    applyLink: "https://www.cisco.com/c/en_in/careers/code-with-cisco.html", 
+    finalMonth: "September" 
+  },
+  { 
+    title: "Google WE Scholar", 
+    desc: "Mentorship and virtual program for women in engineering.", 
+    timeline: "Aug-Sep", 
+    applyLink: "https://buildyourfuture.withgoogle.com/programs/we-scholar", 
+    finalMonth: "August" 
+  },
+];
+
+const monthOrder = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+const cardContainer = document.getElementById('cardContainer');
+const monthFilter = document.getElementById('monthFilter');
+const keywordFilter = document.getElementById('keywordFilter');
+
+function displayCards(filterMonth="all", keyword="") {
+  cardContainer.innerHTML = "";
+  const sortedInternships = internships.slice().sort((a,b) => monthOrder.indexOf(a.finalMonth) - monthOrder.indexOf(b.finalMonth));
+  
+  sortedInternships.forEach(intern => {
+    if((filterMonth === "all" || intern.timeline.includes(filterMonth)) && intern.title.toLowerCase().includes(keyword.toLowerCase())) {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <h2>${intern.title}</h2>
+        <p>${intern.desc}</p>
+        <p><strong>Timeline:</strong> ${intern.timeline}</p>
+        <div class="button-container">
+          <a href="${intern.applyLink}" target="_blank" class="btn apply-btn">Apply</a>
+          <button class="btn notify-btn">Notify Me</button>
+        </div>
+      `;
+      const notifyBtn = card.querySelector('.notify-btn');
+      notifyBtn.addEventListener('click', () => {
+        let notified = JSON.parse(localStorage.getItem('notifications')) || [];
+        if(!notified.includes(intern.title)) {
+          notified.push(intern.title);
+          localStorage.setItem('notifications', JSON.stringify(notified));
+          alert(`You will be notified when ${intern.title} is live!`);
+        } else {
+          alert(`You already subscribed for ${intern.title}!`);
+        }
+      });
+      cardContainer.appendChild(card);
+    }
+  });
+}
+
+// Event listeners
+monthFilter.addEventListener('change', () => displayCards(monthFilter.value, keywordFilter.value));
+keywordFilter.addEventListener('input', () => displayCards(monthFilter.value, keywordFilter.value));
+
+// Initial render
+displayCards();
+</script>
+
 </body>
 </html>
