@@ -1,0 +1,120 @@
+/* Body Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #66ccff, #9966ff);
+    color: #222;
+    transition: background 0.3s, color 0.3s;
+    overflow-x: hidden;
+}
+
+/* Heading with typewriter animation */
+.type {
+    font-weight: bolder;
+    font-family: monospace;
+    animation: typewriter 3s steps(20) 1s 1 normal both, blink 0.75s step-end infinite;
+    width: 0; 
+    overflow: hidden; 
+    white-space: nowrap; 
+    border-right: 3px solid black; 
+    display: inline-block;
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 40px;
+}
+
+/* Typewriter animation */
+@keyframes typewriter {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Boxes Container */
+.boxes {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: fit-content;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    animation: fadeInUp 1s ease forwards;
+}
+
+/* Cards Row */
+.card-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+/* Individual Cards */
+.card-title {
+    animation: fadeInUp 1s ease forwards;
+}
+
+.card-title:nth-child(1) { animation-delay: 0.3s; }
+.card-title:nth-child(2) { animation-delay: 0.6s; }
+.card-title:nth-child(3) { animation-delay: 0.9s; }
+.card-title:nth-child(4) { animation-delay: 1.2s; }
+
+/* Buttons */
+button, .cb {
+    border-radius: 15px;
+    border: none;
+    padding: 25px 40px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    width: 300px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button:hover, .cb:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+}
+
+/* Fade In Animation */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px);}
+    100% { opacity: 1; transform: translateY(0);}
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Responsive */
+@media(max-width: 768px){
+    .cb, button {
+        width: 220px;
+        height: 200px;
+        font-size: 1rem;
+        padding: 20px;
+    }
+
+    .boxes {
+        padding: 20px;
+        gap: 20px;
+    }
+}

@@ -1,71 +1,305 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Opportunities</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hackathon & Coding Competitions</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #ff66cc, #9966ff);
+      background: linear-gradient(to bottom, #66ccff, #9966ff);
+      color: #222;
+      transition: background 0.3s, color 0.3s;
     }
-
+    body.dark {
+      background: linear-gradient(to bottom, #222, #444);
+      color: #f1f1f1;
+    }
     h1 {
       text-align: center;
-      margin-top: 30px;
-      font-size: 24px;
+      margin: 20px 0;
+      font-size: 26px;
       font-weight: bold;
     }
-
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .card {
-      background-color: cornsilk;
-      height: 200px;
-      border: 2px solid black;
-      border-radius: 15px;
+    .top-bar {
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      font-weight: bold;
-      font-size: 20px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      gap: 15px;
+      margin: 10px;
+      flex-wrap: wrap;
     }
-
+    .top-bar input, .top-bar select, .top-bar button {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #555;
+      font-size: 14px;
+    }
+    .toggle-dark {
+      cursor: pointer;
+      font-weight: bold;
+      background: #222;
+      color: white;
+    }
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background-color: cornsilk;
+      border: 2px solid black;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+    body.dark .card { background-color: #333; border-color: #999; }
     .card:hover {
-      transform: scale(1.05);
+      transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
-
-    button:hover{
-    background-color: rgb(222, 179, 251);
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    .card h2 { margin-top: 0; font-size: 18px; font-weight: bold; }
+    .deadline { font-size: 14px; color: red; margin: 5px 0; }
+    body.dark .deadline { color: #ff7777; }
+    .button-container {
+      margin-top: auto; 
+      display: flex; 
+      justify-content: space-between; 
+      gap: 10px;
     }
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      border: none;
+    }
+    .apply-btn { background: #007bff; }
+    .notify-btn { background: #ff9800; }
+    .bookmark-btn { background: #4caf50; }
+    .btn:hover { opacity: 0.85; }
+    .saved-section {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 15px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 10px;
+    }
+    body.dark .saved-section { background: rgba(0,0,0,0.5); }
   </style>
 </head>
 <body>
-  <h1>Find Year Specific Opportunities</h1>
 
-  <div class="card-container">
-    <div class="card">Google Girl Hackathon</div>
-    <div class="card">Flipkart Grid</div>
-    <div class="card">Adobe India Hackathon</div>
-    <div class="card">Smart India Hackathon</div>
-    <div class="card">Tcs CodeVita</div>
-    <div class="card">EY techathon</div>
-  </div>
+<h1>Hackathon & Coding Competitions</h1>
+
+<div class="top-bar">
+  <label for="monthFilter">Month:</label>
+  <select id="monthFilter">
+    <option value="all">All</option>
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+    <option value="October">October</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+  </select>
+  <input type="text" id="keywordFilter" placeholder="Search by company...">
+  <button class="toggle-dark">🌙 Dark Mode</button>
+</div>
+
+<div class="card-container" id="cardContainer"></div>
+
+<div class="saved-section">
+  <h2>⭐ Saved Internships</h2>
+  <ul id="savedList"></ul>
+</div>
+
+<script>
+const internships = [
+  { 
+    title: "Google Girl Hackathon", 
+    desc: "Software Development Internship at Google.", 
+    timeline: "Nov-Dec", 
+    applyLink: "https://www.google.com/about/careers/applications/", 
+    finalMonth: "December",
+    deadline: "2025-12-15"
+  },
+  { 
+    title: "Flipkart GRID", 
+    desc: "Virtual internship program at Cisco.", 
+    timeline: "Oct-Nov", 
+    applyLink: "https://www.cisco.com/c/en_in/careers/internships.html", 
+    finalMonth: "October",
+    deadline: "2025-10-25"
+  },
+  { 
+    title: "Microsoft Imagine Cup", 
+    desc: "Coding and technical skill development program by Cisco.", 
+    timeline: "Sep-Oct", 
+    applyLink: "https://www.cisco.com/c/en_in/careers/code-with-cisco.html", 
+    finalMonth: "September",
+    deadline: "2025-09-30"
+  },
+  { 
+    title: "Adobe India Hackathon", 
+    desc: "Mentorship and virtual program for women in engineering.", 
+    timeline: "Aug-Sep", 
+    applyLink: "https://buildyourfuture.withgoogle.com/programs/we-scholar", 
+    finalMonth: "August",
+    deadline: "2025-08-31"
+  },
+  { 
+    title: "JP Morgan Code for Good", 
+    desc: "Mentorship and virtual program for women in engineering.", 
+    timeline: "Aug-Sep", 
+    applyLink: "https://buildyourfuture.withgoogle.com/programs/we-scholar", 
+    finalMonth: "August",
+    deadline: "2025-08-31"
+  },
+  { 
+    title: "EY Techathon", 
+    desc: "Mentorship and virtual program for women in engineering.", 
+    timeline: "Aug-Sep", 
+    applyLink: "https://buildyourfuture.withgoogle.com/programs/we-scholar", 
+    finalMonth: "August",
+    deadline: "2025-08-31"
+  },
+  { 
+    title: "TCS CodeVita", 
+    desc: "Mentorship and virtual program for women in engineering.", 
+    timeline: "Aug-Sep", 
+    applyLink: "https://buildyourfuture.withgoogle.com/programs/we-scholar", 
+    finalMonth: "August",
+    deadline: "2025-08-31"
+  },
+];
+
+const monthOrder = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+const cardContainer = document.getElementById('cardContainer');
+const monthFilter = document.getElementById('monthFilter');
+const keywordFilter = document.getElementById('keywordFilter');
+const savedList = document.getElementById('savedList');
+
+// Use Sets
+let savedInternships = new Set(JSON.parse(localStorage.getItem('saved')) || []);
+let notified = new Set(JSON.parse(localStorage.getItem('notifications')) || []);
+
+function saveToLocalStorage() {
+  localStorage.setItem('saved', JSON.stringify([...savedInternships]));
+  localStorage.setItem('notifications', JSON.stringify([...notified]));
+}
+
+// Countdown
+function getCountdown(date) {
+  const now = new Date();
+  const deadline = new Date(date);
+  const diff = deadline - now;
+  if(diff <= 0) return "Deadline passed";
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  return `${days} days left`;
+}
+
+// Render saved list
+function renderSaved() {
+  savedList.innerHTML = "";
+  savedInternships.forEach(title => {
+    const li = document.createElement("li");
+    li.textContent = title;
+    savedList.appendChild(li);
+  });
+}
+
+function displayCards(filterMonth="all", keyword="") {
+  cardContainer.innerHTML = "";
+  const sortedInternships = internships.slice().sort((a,b) => monthOrder.indexOf(a.finalMonth) - monthOrder.indexOf(b.finalMonth));
+  
+  sortedInternships.forEach(intern => {
+    if((filterMonth === "all" || intern.timeline.includes(filterMonth)) && intern.title.toLowerCase().includes(keyword.toLowerCase())) {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <h2>${intern.title}</h2>
+        <p>${intern.desc}</p>
+        <p><strong>Timeline:</strong> ${intern.timeline}</p>
+        <p class="deadline"><strong>Deadline:</strong> ${getCountdown(intern.deadline)}</p>
+        <div class="button-container">
+          <a href="${intern.applyLink}" target="_blank" class="btn apply-btn">Apply</a>
+          <button class="btn notify-btn">Notify</button>
+          <button class="btn bookmark-btn">Save</button>
+        </div>
+      `;
+      
+      // Notify button
+      const notifyBtn = card.querySelector('.notify-btn');
+      notifyBtn.addEventListener('click', () => {
+        if(!notified.has(intern.title)) {
+          notified.add(intern.title);
+          saveToLocalStorage();
+          alert(`You will be notified when ${intern.title} is live!`);
+        } else {
+          alert(`You already subscribed for ${intern.title}!`);
+        }
+      });
+
+      // Save button (click = save, double click = unsave)
+      const bookmarkBtn = card.querySelector('.bookmark-btn');
+      bookmarkBtn.addEventListener('click', () => {
+        if(!savedInternships.has(intern.title)) {
+          savedInternships.add(intern.title);
+          saveToLocalStorage();
+          renderSaved();
+          alert(`${intern.title} saved!`);
+        } else {
+          alert(`${intern.title} is already saved! (Double-click to remove)`);
+        }
+      });
+      bookmarkBtn.addEventListener('dblclick', () => {
+        if(savedInternships.has(intern.title)) {
+          savedInternships.delete(intern.title);
+          saveToLocalStorage();
+          renderSaved();
+          alert(`${intern.title} removed from saved!`);
+        }
+      });
+
+      cardContainer.appendChild(card);
+    }
+  });
+}
+
+// Dark mode toggle
+document.querySelector(".toggle-dark").addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
+
+// Filters
+monthFilter.addEventListener('change', () => displayCards(monthFilter.value, keywordFilter.value));
+keywordFilter.addEventListener('input', () => displayCards(monthFilter.value, keywordFilter.value));
+
+// Initial render
+displayCards();
+renderSaved();
+</script>
+
 </body>
 </html>

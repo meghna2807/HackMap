@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.animated-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #5dade2, #85c1e9, #3498db);
+  background-size: 600% 600%;
+  animation: gradientBG 15s ease infinite;
+  z-index: -2;
+}
+
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  width: 90%;
+  max-width: 1000px;
+  margin-top: 80px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 50px;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  padding: 40px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transition: all 0.4s ease;
+  transform-style: preserve-3d;
+  opacity: 0;
+  animation: fadeInUp 1s forwards;
+}
+
+.box:nth-child(1) { animation-delay: 0.3s; }
+.box:nth-child(2) { animation-delay: 0.6s; }
+.box:nth-child(3) { animation-delay: 0.9s; }
+.box:nth-child(4) { animation-delay: 1.2s; }
+
+.box:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.text {
+  z-index: 1;
+  text-align: center;
+}
+
+@keyframes fadeInUp {
+  0% {opacity:0; transform: translateY(20px);}
+  100% {opacity:1; transform: translateY(0);}
+}
+
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+/* Particle canvas */
+#particles {
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
