@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HackMap - 2nd Year Open Source Opportunities</title>
+    <title>HackMap - 2nd Year Research Programs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
     <style>
@@ -141,12 +141,6 @@
             font-weight: bold;
         }
 
-        .deadline {
-            font-size: 14px;
-            color: #ff6b6b;
-            margin: 5px 0;
-        }
-
         .button-container {
             margin-top: auto;
             display: flex;
@@ -167,7 +161,7 @@
             border: none;
         }
 
-        .apply-btn { background: #560e9e; }
+        .more-info-btn { background: #560e9e; }
 
         .btn:hover { opacity: 0.85; }
 
@@ -197,12 +191,6 @@
             margin-left: 10px;
         }
 
-        .countdown {
-            font-size: 1.1em;
-            color: var(--text-secondary);
-            margin-top: 10px;
-        }
-
         @media (max-width: 600px) {
             .top-bar {
                 flex-direction: column;
@@ -218,7 +206,7 @@
 </head>
 <body>
     <header class="hero">
-        <h1 class="logo">Open Source Opportuntiies</h1>
+        <h1 class="logo">Research Programs</h1>
         <p id="greeting"></p>
         <div class="pulse-icon"><i class="fas fa-briefcase" aria-label="Briefcase icon"></i></div>
     </header>
@@ -240,7 +228,7 @@
                 <option value="November">November</option>
                 <option value="December">December</option>
             </select>
-            <input type="text" id="keywordFilter" placeholder="Search by company...">
+            <input type="text" id="keywordFilter" placeholder="Search by program...">
             <label for="femaleFilter">Female-Only:</label>
             <input type="checkbox" id="femaleFilter">
             <button class="toggle-dark" id="darkModeToggle">🌙 Dark Mode</button>
@@ -252,43 +240,39 @@
     <script>
         const internships = [
             { 
-                title: "GSoC(Google Summer of Code)", 
-                desc: "Google Summer of Code (GSoC) is a prestigious global program by Google paying students to contribute to open-source projects. Ideal for building tech skills and resume impact for internships..", 
-                timeline: "February-April", 
-                Deadline: "February", 
-                Eligibility: "Open to all undergrad (18+)",
-                applyLink: "https://summerofcode.withgoogle.com/",
+                title: "DRDO Internship", 
+                desc: "DRDO (Defence Research Development Organization) is a government organization that offers research internships for people who are in the field of research and development. It offers internships to both graduate and postgraduate students. It offers Summer and Winter Internships.",  
+                moreInfoLink: "https://www.geeksforgeeks.org/blogs/how-to-get-an-internship-in-drdo/",
                 femaleOnly: false
             },
             { 
-                title: "Hacktoberfest", 
-                desc: "Hacktoberfest is DigitalOcean’s annual event that encourages people to contribute to open source throughout October. Participants submit 4 or more quality pull requests (PRs) to public repositories to earn digital badges and swag.", 
-                timeline: "September-October", 
+                title: "IISC Bangalore Internship", 
+                desc: "Summer research internship at IISc Bangalore, providing students with hands-on experience and expert mentorship on innovative projects.", 
+                moreInfoLink: "https://www.sciastra.com/blogs/how-do-i-get-a-summer-internship-in-iisc-bangalore/",
+                femaleOnly: false
+            },
+            { 
+                title: "IISER Summer Program", 
+                desc: "Research program at IISER Pune/Kolkata, offering hands-on projects in science and engineering for B.Tech students.", 
+                timeline: "September-November", 
                 Deadline: "September", 
-                Eligibility: "Open to All(18+)",
-                applyLink: "https://hacktoberfest.com/",
+                moreInfoLink: "https://www.iiserpune.ac.in/",
                 femaleOnly: false
             },
             { 
-                title: "MLH Fellowship", 
-                desc: "Major League Hacking (MLH) is the official student hackathon league.It offers aspiring software engineers the chance to contribute to real open-source projects with expert mentors.", 
-                timeline: "August", 
-                Deadline: "August", 
-                Eligibility: "Have been a participant in at least one MLH Hackathon or Global Hack Week event (18+)",
-                applyLink: "https://fellowship.mlh.io/",
+                title: "IIT Summer Internship", 
+                desc: "Research internships at IITs (e.g., Bombay, Delhi) for B.Tech students, focusing on engineering, AI, and interdisciplinary projects.", 
+                
                 femaleOnly: false
             },
             { 
-                title: "Outreachy", 
-                desc: "Outreachy is a global open-source internship program supporting diversity in tech, providing 3-month paid remote opportunities to underrepresented groups, including women, non-binary in India.", 
-                timeline: "August-December & February-May (2 times in a year)", 
-                Deadline: "August & February", 
-                Eligibility: "Open to All (18+)",
-                applyLink: "https://www.outreachy.org/",
+                title: "Inspire Internship", 
+                desc: "DST Inspire Internship for B.Tech students, promoting research in science and technology through hands-on projects and workshops.", 
+                timeline: "June-September", 
+                Deadline: "July", 
+                moreInfoLink: "https://online-inspire.gov.in/",
                 femaleOnly: false
             },
-            
-            
         ];
 
         const monthOrder = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -301,11 +285,10 @@
         const greeting = document.getElementById('greeting');
 
         function getFirstMonth(timeline) {
-            
             if (timeline.includes('-')) {
                 return timeline.split('-')[0].trim();
             }
-            return timeline; 
+            return timeline;
         }
 
         function displayCards(filterMonth = "all", keyword = "", femaleOnly = false) {
@@ -328,12 +311,8 @@
                 card.innerHTML = `
                     <h2>${intern.title}</h2>
                     <p>${intern.desc}</p>
-                    <p><strong>Timeline:</strong> ${intern.timeline || 'Not specified'}</p>
-                    <p class="deadline"><strong>Deadline:</strong> ${intern.Deadline}</p>
-                    <p><strong>Eligibility:</strong> ${intern.Eligibility}</p>
-                    ${intern.femaleOnly ? '<p><strong>Female-Only:</strong> Yes</p>' : ''}
                     <div class="button-container">
-                        <a href="${intern.applyLink}" target="_blank" class="btn apply-btn">Apply</a>
+                        <a href="${intern.moreInfoLink}" target="_blank" class="btn more-info-btn">More Info</a>
                     </div>
                 `;
                 cardContainer.appendChild(card);
@@ -347,7 +326,7 @@
 
         darkModeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
-            darkModeToggle.textContent = document.body.classList.contains('light-mode') ? 'Light Mode' : 'Dark Mode';
+            darkModeToggle.textContent = document.body.classList.contains('light-mode') ? ' Light Mode' : ' Dark Mode';
         });
 
         monthFilter.addEventListener('change', () => displayCards(monthFilter.value, keywordFilter.value, femaleFilter.checked));
