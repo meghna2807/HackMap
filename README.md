@@ -19,4 +19,5 @@ HackMap simplifies the process of finding relevant opportunties for students by 
 
 ## 🌐 Live Link
 HackMap is deployed on GitHub Pages.
+
 [Project Live link](https://meghna2807.github.io/HackMap/)
