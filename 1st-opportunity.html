@@ -89,33 +89,17 @@
                 flex: 1;
             }
 
-            #year-heading{
-              /* display: flex;
-              justify-content: center;
-              align-items: center;
-              /* background-color: #8e44ad; */
-              /* border-radius: 40px;
-              border: none;
-              margin-bottom: 20px;
-              margin-top: 10px;
-              padding: 0px;
-              font-size: 20px;
-              font-weight: bold;  
-              margin: 20px auto 20px; 
-              width: 30%;
-              color: white;
-              box-shadow: 0 4px 20px rgb(142, 68, 173); */ */
-            } 
-
-            /* #text-heading{
+            .heading-container {
                 text-align: center;
-                color: var(--accent);
-                font-size: 1.5em;
-                
-                padding-bottom: 300px;
-                text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-            } */
+            }
 
+            #text-heading {
+                display: inline-block;
+                font-size: 1.5em;
+                font-weight: bold;
+                background-color: rgba(240, 248, 255, 0.2);
+                padding: 0 10px;
+            }
             .card-title{
                 text-align: center;
             }
@@ -180,7 +164,9 @@
         </header>
 
         <div id="opportunity-section" class="card-section">
+            <div class="heading-container">
             <p id="text-heading">1st-Year Opportunities</p>
+            </div>
             <div class="card-row">
                 <div class="card-title"><a href="Hackathon.html"><button class="cb">Hackathon</button></a></div>            
                 <div class="card-title"><a href="Internships.html"><button class="cb">Internships</button></a></div>
