@@ -1,152 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HackMap - 3rd Year Opportunities</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --bg-primary: #1e1e2f;
-            --bg-secondary: #2a2a3e;
-            --text-primary: #e0e0e0;
-            --text-secondary: #a3bffa;
-            --accent: #e74c3c;
-            --gradient: linear-gradient(90deg, #2c3e50, #8e44ad);
-            --card-bg: #2a2a3e;
-            --border: #444;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HackMap - 3rd Year Opportunties</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            min-height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
-        }
+        <style>
+            :root{
+                --bg-primary: rgb(30,30, 47);
+                --bg-secondary: rgb(42,42,62);
+                --text-primary: rgb(224,224,224);
+                --text-secondary: rgb(163, 191, 250);
+                --accent: white;
+                --gradient: linear-gradient(90deg, rgb(44, 62, 80), rgb(142, 68, 173));
+                --card-bg: rgb(42, 42, 62);
+                --border: rgb(68, 68, 68);
+            }
 
-        header.hero {
-            background: var(--gradient);
-            text-align: center;
-            padding: 50px 20px;
-            width: 100%;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
+            body{
+                background-color: var(--bg-primary);
+                color: var(--text-primary);
+                font-family:'Segoe UI', sans-serif;
+                min-height:100vh;
+                transition: background-color 0.3s,color 0.3s;
+            }
 
-        .logo {
-            font-size: 3em;
-            font-weight: bold;
-            color: var(--accent);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-        }
+            html,body{
+                margin: 0;
+                display:flex;
+                flex-direction: column;
+            }
 
-        #greeting {
-            font-size: 1.3em;
-            margin-top: 15px;
-            color: #ecf0f1;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-        }
+            header.hero{
+                background: var(--gradient);
+                text-align: center;
+                padding: 50px 20px;
+                width: 100%;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            }
 
-        .pulse-icon i {
-            font-size: 50px;
-            color: #ffffff;
-            animation: pulse 2s infinite;
-        }
+            .logo{
+                font-size: 3em;
+                font-weight: bold;
+                color: var(--accent);
+                margin: 0;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
+            .box {
+                text-align: center;
+            }
 
-        #opportunity-section {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+            #greeting{
+                display: inline-block;
+                font-size: 1.5em;
+                color: rgb(255, 255, 255);
+                margin-top: 15px;
+                text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+                animation: typing 4s steps(21, end), blink 0.75s step-end infinite;
+                white-space: nowrap;
+                overflow: hidden;
+            }
 
-        #year-heading {
-            text-align: center;
-            font-size: 2em;
-            color: var(--accent);
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-        }
+            @keyframes typing {
+                from { width: 0; }
+                to { width: 21ch; }
+            }
 
-        .card-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
+            .icon i{
+                font-size:50px;
+                color: rgb(142, 68, 173);
+                animation:pulse 2s infinite;
+            }
 
-        .card-title {
-            text-align: center;
-        }
+            @keyframes pulse {
+                0% {transform: scale(1); }
+                50% {transform: scale(1.1); }
+                100% {transform: scale(1); }
+            }
 
-        .cb {
-            border: none;
-            border-radius: 10px;
-            padding: 20px;
-            background: linear-gradient(45deg, #3498db, #9b59b6);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-            font-weight: bold;
-            width: 100%;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 18px;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
+            #opportunity-section{
+                max-width: 1200px;
+                margin: 0 40px;
+                padding: 0 20px;
+                flex: 1;
+            }
 
-        .cb:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.6);
-            background: linear-gradient(45deg, #2980b9, #8e44ad);
-        }
+            .heading-container {
+                text-align: center;
+            }
 
-        @media (max-width: 600px) {
-            .logo { font-size: 2em; }
-            #greeting { font-size: 1em; }
-            .card-row { grid-template-columns: 1fr; }
-            .cb { padding: 15px; font-size: 16px; }
-        }
-    </style>
-</head>
-<body>
-    <header class="hero">
-        <h1 class="logo">HackMap</h1>
-        <p id="greeting"></p>
-        <div class="pulse-icon"><i class="fas fa-briefcase" aria-label="Briefcase icon"></i></div>
-    </header>
-    <div id="opportunity-section" class="card-section">
-        <h2 id="year-heading">2nd Year Opportunities</h2>
-        <div class="card-row">
-            <div class="card-title"><a href="3rd-Hackathons.html"><button class="cb">Hackathons</button></a></div>
-            <div class="card-title"><a href="3rd-Internship.html"><button class="cb">Internships</button></a></div>
-            <div class="card-title"><a href="3rd-OSP.html"><button class="cb">Open Source Program</button></a></div>
+            #text-heading {
+                display: inline-block;
+                font-size: 1.5em;
+                font-weight: bold;
+                background-color: rgba(240, 248, 255, 0.2);
+                padding: 0 10px;
+            }
+            .card-title{
+                text-align: center;
+            }
+
+            .card-row{
+                display: grid;
+                grid-template-columns: repeat(auto-fit ,minmax(250px,1fr));
+                margin-bottom: 20px;
+                gap: 20px;
+            }
+
+            .cb{
+                border: none;
+                width: 100%;
+                height: 70px;
+                border-radius: 10px;
+                background: linear-gradient(45deg, rgba(52, 152, 219, 1), rgba(142, 68, 173, 1));
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 18px;
+                color: white;
+                transition: all 0.2s ease;
+                box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+
+            .cb:hover {
+               transform: translateY(-5px);
+               box-shadow: 0 8px 20px rgba(52, 152, 219, 0.6);
+               background: linear-gradient(45deg, #2980b9, #8e44ad);
+            }
+
+            footer {
+               text-align: center;
+               padding: 10px;
+               background: #3d0454;
+               color: white;
+               width: 100%;
+               font-size: 0.9rem;
+               margin-top: auto;
+               
+            }
+
+            @media (max-width: 600px) {
+              .logo { font-size: 2em; }
+              #greeting { font-size: 1em; }
+              .card-row { grid-template-columns: 1fr; }
+              .cb { padding: 15px; font-size: 16px; }
+             }
+
+        </style>
+    </head>
+    <body>
+        <header class="hero">
+            <h1 class="logo">HackMap</h1>
+            <div class="box">
+                <p id="greeting">Learn. Build. Achieve</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-graduation-cap" aria-label="graduation-cap"></i>
+            </div>
+        </header>
+
+        <div id="opportunity-section" class="card-section">
+            <div class="heading-container">
+            <p id="text-heading">3rd-Year Opportunities</p>
+            </div>
+            <div class="card-row">
+                <div class="card-title"><a href="3rd-Hackathons.html"><button class="cb">Hackathon</button></a></div>            
+                <div class="card-title"><a href="3rd-Internship.html"><button class="cb">Internships</button></a></div>
+                <div class="card-title"><a href="3rd-OSP.html"><button class="cb">Open Source Program</button></a></div>     
+            </div>
+            <div class="card-row">
+                <div class="card-title"><a href="3rd-ResearchProg.html"><button class="cb">Research Program</button></a></div>
+            </div>
         </div>
-        <div class="card-row">
-            <div class="card-title"><a href="3rd-ResearchProg.html"><button class="cb">Research Program</button></a></div>
-        </div>
-    </div>
-
-    <script>
-        const greeting = document.getElementById('greeting');
-        const yearHeading = document.getElementById('year-heading');
-
-        function updateGreeting() {
-            const hour = new Date().getHours();
-            greeting.textContent = hour < 12 ? `Welcome, 3rd Year! Good Morning!` : `Welcome, 3rd Year! Good Evening!`;
-        }
-
-
-        yearHeading.textContent = "3rd Year Opportunities";
-        updateGreeting();
-    </script>
-</body>
+        <footer>
+      <p>&copy; 2025 HackMap</p>
+    </footer>
+    </body>
 </html>
+
+
+      
+    
