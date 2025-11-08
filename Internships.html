@@ -138,6 +138,13 @@
             font-size: 14px;
         }
 
+        .female-filter {
+            display: flex;
+            align-items: center;
+            gap: 5px; 
+        }
+
+
         .dark-btn {
             cursor: pointer;
             font-weight: bold;
@@ -272,8 +279,10 @@
                 <option value="December">December</option>
             </select>
             <input type="text" id="searchFilter" placeholder="Search By company">
-            <label for="femaleFilter">Female-only</label>
-            <input type="checkbox" id="femaleFilter">
+            <div class="filter-gender">
+                <label for="femaleFilter">Female-only</label>
+                <input type="checkbox" id="femaleFilter">
+            </div>
             <button class="dark-btn" id="darkMode">Dark Mode</button>
         </div>
         <div class="card-container" id="cardContainer"></div>
